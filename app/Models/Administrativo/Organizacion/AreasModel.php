@@ -1,16 +1,12 @@
 <?php
-
 namespace App\Models\Administrativo\Organizacion;
 
-use App\Models\BaseController;
+use CodeIgniter\Model;
 
-class AreasModel extends BaseModel
+class AreasModel extends Model
 {
-    public function index(): string
-    {
-        $datos['header'] = view('layouts/header');
-        $datos['footer'] = view('layouts/footer');
-
-        return view('Administrativo/Organizacion/Areas', $datos);
-    }
+    protected $table      = 'areas';
+    protected $primaryKey = 'idarea';
+    protected $allowedFields = ['area', 'idsucursal'];
+    protected $returnType = 'array';
 }

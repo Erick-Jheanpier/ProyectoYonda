@@ -13,6 +13,13 @@
     protected $primaryKey = 'idsucursal';
 
     //3. Campos operar
-    protected $allowedFields = ['sucursal',"direccion","referencia","iddistrito"];
+    protected $allowedFields = [
+    'RUC',
+    'sucursal',
+    'direccion',
+    'actividad_economica',
+    'referencia',
+    'iddistrito'
+];
 
     }

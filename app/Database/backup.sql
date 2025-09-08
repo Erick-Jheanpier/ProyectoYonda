@@ -35,6 +35,7 @@ CREATE TABLE `areas` (
   `idsucursal` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+select * from areas;
 --
 -- Dumping data for table `areas`
 --
@@ -91,7 +92,7 @@ CREATE TABLE `cargos` (
   `cargo` varchar(40) NOT NULL,
   `idarea` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+select * from cargos;
 --
 -- Dumping data for table `cargos`
 --
@@ -2425,15 +2426,14 @@ INSERT INTO `provincias` (`idprovincia`, `provincia`, `iddepartamento`) VALUES
 --
 
 CREATE TABLE `sucursales` (
-  `idsucursal` int NOT NULL,
-  `RUC` varchar(11) NOT NULL,
+  `idsucursal` int auto_increment primary KEY NOT NULL,
   `sucursal` varchar(40) NOT NULL,
   `direccion` varchar(60) NOT NULL,
-  `actividad_economica` varchar(60) NOT NULL,
   `referencia` varchar(50) NOT NULL,
   `iddistrito` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+select * from sucursales;
 --
 -- Dumping data for table `sucursales`
 --

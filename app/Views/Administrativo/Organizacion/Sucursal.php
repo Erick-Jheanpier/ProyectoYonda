@@ -2,8 +2,6 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="pc-container">
-        
-
         <div class="content-wrapper p-4">
             <div class="container">
                 <div class="card shadow-lg">
@@ -12,53 +10,49 @@
                     </div>
                     <div class="card-body">
                         <!-- Formulario -->
-                        <form class="row g-3 needs-validation" method="POST" action="<?= base_url('/sucursal/store') ?>" novalidate>
-    <?= csrf_field() ?>
+                        <form class="row g-3 needs-validation" method="POST" action="<?= base_url('/sucursal/store') ?>"
+                            novalidate>
+                            <?= csrf_field() ?>
 
-    <!-- RUC -->
-    <div class="col-md-6">
-        <label for="RUC" class="form-label">RUC</label>
-        <input type="text" class="form-control" id="RUC" name="RUC" pattern="[0-9]{11}" required>
-        <div class="invalid-feedback">El RUC debe tener exactamente 11 dígitos numéricos.</div>
-    </div>
 
-    <!-- Sucursal -->
-    <div class="col-md-6">
-        <label for="sucursal" class="form-label">Sucursal</label>
-        <input type="text" class="form-control" id="sucursal" name="sucursal" required>
-    </div>
+                            <!-- Sucursal -->
+                            <div class="col-md-6">
+                                <label for="sucursal" class="form-label">Sucursal</label>
+                                <input type="text" class="form-control" id="sucursal" name="sucursal" required>
+                                <div class="invalid-feedback">Ingrese la sucursal.</div>
+                            </div>
 
-    <!-- Actividad Económica -->
-    <div class="col-md-6">
-        <label for="actividad_economica" class="form-label">Actividad Económica</label>
-        <input type="text" class="form-control" id="actividad_economica" name="actividad_economica" required>
-    </div>
 
-    <!-- Distrito -->
-    <div class="col-md-6">
-        <label for="iddistrito" class="form-label">Distrito (ID)</label>
-        <input type="number" class="form-control" id="iddistrito" name="iddistrito" required>
-    </div>
+                            <!-- Distrito (texto visible) -->
+                            <div class="col-md-6">
+                                <label for="distrito" class="form-label">Distrito</label>
+                                <input type="text" class="form-control" id="distrito" name="distrito" required>
+                                <div class="invalid-feedback">Ingrese el distrito.</div>
+                            </div>
 
-    <!-- Direccion -->
-    <div class="col-md-6">
-        <label for="direccion" class="form-label">Dirección</label>
-        <input type="text" class="form-control" id="direccion" name="direccion" required>
-    </div>
+                            <!-- Campo oculto para guardar el ID real -->
+                            <input type="hidden" id="iddistrito" name="iddistrito">
 
-    <!-- Referencia -->
-    <div class="col-md-6">
-        <label for="referencia" class="form-label">Referencia</label>
-        <input type="text" class="form-control" id="referencia" name="referencia" required>
-    </div>
+                            <!-- Dirección -->
+                            <div class="col-md-6">
+                                <label for="direccion" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="direccion" name="direccion" required>
+                                <div class="invalid-feedback">Ingrese la dirección.</div>
+                            </div>
 
-    <!-- Botón -->
-    <div class="col-12">
-        <button class="btn btn-success" type="submit">Guardar</button>
-        <button class="btn btn-secondary" type="reset">Limpiar</button>
-    </div>
-</form>
+                            <!-- Referencia -->
+                            <div class="col-md-6">
+                                <label for="referencia" class="form-label">Referencia</label>
+                                <input type="text" class="form-control" id="referencia" name="referencia" required>
+                                <div class="invalid-feedback">Ingrese la referencia.</div>
+                            </div>
 
+                            <!-- Botón -->
+                            <div class="col-12">
+                                <button class="btn btn-success" type="submit">Guardar</button>
+                                <button class="btn btn-secondary" type="reset">Limpiar</button>
+                            </div>
+                        </form>
                         <!-- /Formulario -->
                     </div>
                 </div>
@@ -67,7 +61,6 @@
 
         <?= $footer ?>
     </div>
-    
 
     <!-- Script de validación Bootstrap -->
     <script>
@@ -85,26 +78,30 @@
             })
         })()
     </script>
+
     <script>
-document.getElementById("ruc").addEventListener("blur", function() {
-    let ruc = this.value.trim();
-    if(ruc.length === 11){
-        fetch(`/sucursal/buscar-ruc/${ruc}`)
-            .then(res => res.json())
-            .then(data => {
-                if(data.error){
-                    alert(data.error);
-                } else {
-                    document.getElementById("sucursal").value = data.razon_social || "";
-                    document.getElementById("actividad").value = data.actividad_economica || "";
-                    document.getElementById("direccion").value = data.direccion || "";
-                    document.getElementById("distrito").value = data.distrito || "";
-                }
-            })
-            .catch(err => console.error(err));
-    }
-});
-</script>
+        document.getElementById("distrito").addEventListener("blur", function () {
+            const nombre = this.value.trim();
+            if (nombre === "") {
+                document.getElementById("iddistrito").value = "";
+                return;
+            }
+
+            fetch("<?= base_url('/api/getDistritoId') ?>/" + encodeURIComponent(nombre))
+                .then(response => response.json())
+                .then(data => {
+                    if (data.iddistrito) {
+                        document.getElementById("iddistrito").value = data.iddistrito;
+                    } else {
+                        document.getElementById("iddistrito").value = "";
+                        alert("⚠️ Distrito no encontrado en la base de datos.");
+                    }
+                })
+                .catch(err => console.error("Error buscando distrito:", err));
+        });
+    </script>
+
 
 </body>
+
 </html>

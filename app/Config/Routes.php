@@ -35,19 +35,26 @@ $routes->post('/personas/actualizar', 'PersonasController::actualizar');
 
 $routes->get('/personas/info/(:num)', 'PersonasController::info/$1');
 
-
-//ruta para area
+// Áreas
 $routes->get('/areas', 'Administrativo\Organizacion\AreasController::index');
+$routes->post('/areas/store', 'Administrativo\Organizacion\AreasController::store');
+$routes->post('/areas/update/(:num)', 'Administrativo\Organizacion\AreasController::update/$1');
+$routes->delete('/areas/delete/(:num)', 'Administrativo\Organizacion\AreasController::delete/$1');
+
+// Cargos
+$routes->post('/cargos/store', 'Administrativo\Organizacion\CargosController::store');
+$routes->post('/cargos/update/(:num)', 'Administrativo\Organizacion\CargosController::update/$1');
+$routes->delete('/cargos/delete/(:num)', 'Administrativo\Organizacion\CargosController::delete/$1');
+
 
 //ruta para colaboradores
 $routes->get('/colaboradores', 'Administrativo\Organizacion\ColaboradoresController::index');
 
-//ruta para sucursales
+// Rutas para sucursales
 $routes->get('/sucursal', 'Administrativo\Organizacion\SucursalController::index');
 $routes->post('/sucursal/store', 'Administrativo\Organizacion\SucursalController::store');
 $routes->get('/sucursal/buscar-ruc/(:num)', 'Administrativo\Organizacion\SucursalController::buscarRUC/$1');
-
-
+$routes->get('/api/getDistritoId/(:any)', 'Administrativo\Organizacion\DistritoController::getDistritoId/$1');
 
 //ruta para desvinculados
 $routes->get('/desvinculados', 'Administrativo\Trabajadores\DesvinculadosController::index');

@@ -30,6 +30,29 @@
    <!--<script>layout_rtl_change('false');</script>-->
    <!--<script>preset_change("preset-1");</script>-->
    <!--<script>font_change("Public-Sans");</script>-->
+   <?php if (session()->getFlashdata('success')): ?>
+<script>
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: '<?= session()->getFlashdata('success'); ?>',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true
+    });
+</script>
+<?php endif; ?>
+
+<?php if (session()->getFlashdata('errors')): ?>
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        html: '<?= implode("<br>", session()->getFlashdata('errors')); ?>'
+    });
+</script>
+<?php endif; ?>
 
   
 </body>

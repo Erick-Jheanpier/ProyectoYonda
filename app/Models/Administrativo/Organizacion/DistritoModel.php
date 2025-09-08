@@ -4,18 +4,16 @@ namespace App\Models\Administrativo\Organizacion;
 
 use CodeIgniter\Model;
 
-class SucursalModel extends Model
+class DistritoModel extends Model
 {
-    protected $table            = 'sucursales';
-    protected $primaryKey       = 'idsucursal';
+    protected $table            = 'distritos';
+    protected $primaryKey       = 'iddistrito';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
 
     protected $allowedFields    = [
-        'sucursal',
-        'direccion',
-        'referencia',
-        'iddistrito'
+        'distrito',
+        'idprovincia'
     ];
 }
